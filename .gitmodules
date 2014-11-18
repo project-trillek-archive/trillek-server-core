@@ -1,0 +1,4 @@
+[submodule "common"]
+	path = common
+	url = https://github.com/trillek-team/trillek-common.git
+	branch = develop
