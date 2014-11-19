@@ -11,15 +11,6 @@ before_install:
     # Playdeb has bullet in their repo
     - wget http://archive.getdeb.net/install_deb/playdeb_0.3-1~getdeb1_all.deb
     - sudo dpkg -i playdeb_0.3-1~getdeb1_all.deb
-    # No ppa for GLFW3 at this time. Compiling by hand!
-    - sudo apt-get -qq install xorg-dev libglu1-mesa-dev
-    - git clone --depth=100 https://github.com/glfw/glfw.git
-    - cd glfw
-    # GLFW requests cmake-2.8.9 but travis runs 2.8.7, we use the last commit using 2.8.7
-    - git checkout 96d230becb0c612b3f3631cb6cf83ebe0a393b71
-    - CMAKE_CXX_FLAGS=-fPIC CMAKE_C_FLAGS=-fPIC cmake -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:bool=true .
-    - sudo make install
-    - cd ..
     - wget https://rapidjson.googlecode.com/files/rapidjson-0.11.zip
     - unzip rapidjson-0.11.zip -d /tmp
     - sudo cp -r /tmp/rapidjson/include /usr
@@ -37,9 +28,7 @@ install:
     # Setup clang and gcc
     - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
     - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
-    # GLEW
-    - sudo apt-get -q -y install libglew-dev
-    # Raknet and assets
+    # Common files
     - git submodule update --init --depth=1 common
     - cd common
     - git submodule update --init assets
@@ -49,8 +38,6 @@ install:
     - sudo cmake CMakeLists.txt
     - sudo make
     - cd ../..
-    # OpenAL, Vorbis and OGG
-    - sudo apt-get -q -y install libogg-dev libvorbis-dev libopenal-dev libalure-dev
     # Bullet
     - sudo apt-get -q -y install libbullet-dev
     # install and build gtest
@@ -73,7 +60,7 @@ script:
     - mkdir bin/common
     - mv assets bin/common
     - cd bin
-    - ./TCCTests
+#    - ./TCCTests
 
 notifications:
     #email:
