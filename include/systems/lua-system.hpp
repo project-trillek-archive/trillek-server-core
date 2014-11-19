@@ -21,7 +21,7 @@ namespace script {
 
 typedef int (LuaRegisterFunction)(lua_State*);
 
-class LuaSystem : public SystemBase {
+class LuaSystem final : public SystemBase {
 public:
     LuaSystem();
     ~LuaSystem();

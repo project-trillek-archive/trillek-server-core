@@ -23,11 +23,11 @@ class System;
 class SystemValue;
 }
 
-class TrillekGame {
+class TrillekGame final {
 public:
 
     TrillekGame() {};
-    virtual ~TrillekGame() {};
+    ~TrillekGame() {};
     static void Initialize();
 
     /** \brief Return the scheduler
